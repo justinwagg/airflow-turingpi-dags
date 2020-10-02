@@ -15,6 +15,7 @@ dag = DAG("nfs-test", default_args=default_args, schedule_interval=timedelta(1),
 
 t1 = BashOperator(
         task_id="t1", 
-        bash_command="echo 'hello world' > /var/airflow-work-dir/airflow-test.txt", 
+        bash_command="sleep 3600",
+#         bash_command="echo 'hello world' > /var/airflow-work-dir/airflow-test.txt", 
         dag=dag
     )
