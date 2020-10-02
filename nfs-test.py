@@ -80,7 +80,7 @@ print_hello_turing = PythonOperator(
             "volume_mounts": [
                 {
                     "mountPath": "/tmp/work/",
-                    "name": "airflow-test-vol",
+                    "name": "airflow-work-dir",
                 },
             ]
         }
