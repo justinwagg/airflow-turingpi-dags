@@ -1,6 +1,7 @@
 from datetime import timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
+from airflow.operators.bash_operator import BashOperator
 from airflow.utils.dates import days_ago
 
 default_args = {
@@ -44,3 +45,11 @@ print_hello_turing = PythonOperator(
     python_callable=hello_turing,
     dag=dag,
 )
+
+sleep = BashOperator(
+        task_id="sleep", 
+        bash_command="sleep 300",
+        dag=dag
+)
+
+print_hello_turing >> sleep
