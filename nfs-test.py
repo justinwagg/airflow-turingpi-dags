@@ -76,7 +76,7 @@ print_hello_turing = PythonOperator(
                 {
                     'mountPath': '/tmp/work/',
                     'name': 'airflow-work-dir',
-                    'sub_path': None,
+                    'subPath': None,
                     'readOnly': False
                 },
             ]
