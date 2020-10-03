@@ -55,12 +55,12 @@ def hello_turing():
 #     read_only=False
 # )
 
-# volume_config= {
-#     'persistentVolumeClaim':
-#     {
-#         'claimName': 'airflow-work-pvc'
-#     }
-# }
+volume_config= {
+    'nfs': {
+        'path': '/volume1/airflow-prod-work-dir',
+        'server': '192.168.1.108'
+    }
+}
 
 # volume = Volume(name='airflow-work-pv', configs=volume_config)
 
@@ -70,17 +70,14 @@ print_hello_turing = PythonOperator(
     python_callable=hello_turing,
     dag=dag,
     executor_config={
-        "KubernetesExecutor": {
-            "volumes": [
+        'KubernetesExecutor': {
+            'volumes': [{'name': 'airflow-work-dir', **volume_config}],
+            'volume_mounts': [
                 {
-                    "name": "airflow-work-dir",
-                    "hostPath": {"path": "/volume1/airflow-prod-work-dir"},
-                },
-            ],
-            "volume_mounts": [
-                {
-                    "mountPath": "/tmp/work/",
-                    "name": "airflow-work-dir",
+                    'mountPath': '/tmp/work/',
+                    'name': 'airflow-work-dir',
+                    'sub_path': None,
+                    'readOnly': False
                 },
             ]
         }
