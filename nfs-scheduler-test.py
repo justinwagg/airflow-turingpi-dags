@@ -26,6 +26,11 @@ dag = DAG(
     catchup=False,
 )
 
+def check_dir(dir):
+    import os
+    if not os.path.exists(dir):
+        os.makedirs(dir)   
+
 def hello_turing():
     TURING = '\n'.join([
     r'  ____________       _____________',
@@ -46,6 +51,8 @@ def hello_turing():
     ])
 
     print(TURING)
+    
+    check_dir('/tmp/work/testjob')
 
     epoch = int(time.mktime(time.gmtime()))
     filename = '/tmp/work/testjob/hello-turing-{}.txt'.format(epoch)
