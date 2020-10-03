@@ -1,10 +1,15 @@
+"""
+# hello-turing-nfs
+
+An example of persisting a file to NFS using the PythonOperator
+
+"""
+
 from datetime import timedelta
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
 from airflow.utils.dates import days_ago
-# from airflow.kubernetes.volume import Volume
-# from airflow.kubernetes.volume_mount import VolumeMount
 import time
 
 default_args = {
@@ -47,22 +52,12 @@ def hello_turing():
     with open('/tmp/work/test.txt', 'w') as f:
         f.write(TURING)
 
-
-# volume_mount = VolumeMount(
-#     'nfs-disk',
-#     mount_path='/tmp/work',
-#     sub_path=None,
-#     read_only=False
-# )
-
 volume_config= {
     'nfs': {
         'path': '/volume1/airflow-prod-work-dir',
         'server': '192.168.1.108'
     }
 }
-
-# volume = Volume(name='airflow-work-pv', configs=volume_config)
 
 print_hello_turing = PythonOperator(
     task_id='print_hello_turing',
