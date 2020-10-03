@@ -20,7 +20,7 @@ default_args = {
 }
 
 dag = DAG(
-    'hello-turing-nfs',
+    'hello-turing-nfs-scheduled',
     default_args=default_args,
     schedule_interval='*/30 * * * *', # every 30 min
     catchup=False,
