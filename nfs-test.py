@@ -44,7 +44,7 @@ def hello_turing():
 
     time.sleep(60)
 
-    with open('/tmp/work/test.txt') as f:
+    with open('/tmp/work/test.txt', 'w') as f:
         f.write(TURING)
 
 
